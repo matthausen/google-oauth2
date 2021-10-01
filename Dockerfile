@@ -1,4 +1,5 @@
-FROM golang:alpine
+# Build stage
+FROM golang:alpine as build
 
 ENV GO111MODULE=on \
   CGO_ENABLED=0 \
@@ -14,10 +15,11 @@ RUN go mod download
 
 RUN go build -o main ./cmd/
 
-WORKDIR /dist
+# Run stage
+FROM gcr.io/distroless/cc-debian10
 
-RUN cp /build/main .
+COPY --from=build /build/main .
 
 EXPOSE 8080
 
-CMD ["/dist/main"]
+CMD ["/main"]

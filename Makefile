@@ -11,7 +11,7 @@ build:
 	docker build -t ${REPOSITORY}/google-idp .
 
 run: 
-	docker run -p 8080:8080 ${REPOSITORY}/google-idp .
+	docker run -p 8080:8080 ${REPOSITORY}/google-idp
 
 docker-push:
 	docker push ${REPOSITORY}/google-idp
